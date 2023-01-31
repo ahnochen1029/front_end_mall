@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring-boot mall</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+  <body>
+    <!-- Nav bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Mall</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Order</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+
+    <!-- search bar-->
+    <div class="container mt-5">
+    <div class="row">
+        <form class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">Search Keyword</label>
+            <input
+                type="text"
+                class="form-control mb-2 mr-sm-2"
+                id="search-input"
+                placeholder="Keyword..."
+            />
+            <button type="submit" class="btn btn-primary mb-2" id="search-submit">
+                Search
+            </button>
+            </form>
+    </div>
+
+    <div class="row" id="data-panel">
+        <!--Render list-->
+        <div class="col-sm-3">
+            <div class="mb-2">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://raw.githubusercontent.com/ALPHACamp/movie-list-api/master/public/posters/80PWnSTkygi3QWWmJ3hrAwqvLnO.jpg" class="card-img-top" alt="poster">
+                    <div class="card-body">
+                        <h5 class="card-title">title</h5>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-show-mall" data-toggle="modal" data-target="#mall-modal">More</button>
+                        <button class="btn btn-info btn-add-favorite">Add to cart</button>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" id="paginator">
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+        </ul>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="mall-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="mall-modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="mall-modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  </body>
+</html>
