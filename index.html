@@ -10,58 +10,58 @@
   <body>
     <!-- Nav bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Mall</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Order</a>
-        </li>
-        </ul>
-    </div>
+        <a class="navbar-brand" href="#">Mall</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./cart.html">Cart</a>
+            </li>
+            </ul>
+        </div>
     </nav>
 
     <!-- search bar-->
     <div class="container mt-5">
-    <div class="row">
-        <form class="form-inline" id="search-keyword">
-            <label class="sr-only" for="inlineFormInputName2">Search Keyword</label>
-            <input
-                type="text"
-                class="form-control mb-2 mr-sm-2"
-                id="search-input"
-                placeholder="Keyword..."
-            />
-            <button type="submit" class="btn btn-primary mb-2" id="search-submit">
-                Search
-            </button>
-            </form>
-    </div>
-
-    <div class="row" id="data-panel">
-        <!--Render list-->
-        <div class="col-sm-3">
-            <div class="mb-2">
-                <div class="card">
-                    <img src="https://raw.githubusercontent.com/ALPHACamp/movie-list-api/master/public/posters/80PWnSTkygi3QWWmJ3hrAwqvLnO.jpg" class="card-img-top" alt="poster">
-                    <div class="card-body">
-                        <h5 class="card-title">title</h5>
-                        <h6 class="card-info">價格: $ 123</h6>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary btn-show-mall" data-toggle="modal" data-target="#mall-modal">More</button>
-                        <button class="btn btn-info btn-add-favorite">Add to cart</button>
-                    </div>
-                </div>
-            </div>    
+        <div class="row">
+            <form class="form-inline" id="search-keyword">
+                <label class="sr-only" for="inlineFormInputName2">Search Keyword</label>
+                <input
+                    type="text"
+                    class="form-control mb-2 mr-sm-2"
+                    id="search-input"
+                    placeholder="Keyword..."
+                />
+                <button type="submit" class="btn btn-primary mb-2" id="search-submit">
+                    Search
+                </button>
+                </form>
         </div>
-    </div>
+
+        <div class="row" id="data-panel">
+            <!--Render list-->
+            <div class="col-sm-3">
+                <div class="mb-2">
+                    <div class="card">
+                        <img src="https://raw.githubusercontent.com/ALPHACamp/movie-list-api/master/public/posters/80PWnSTkygi3QWWmJ3hrAwqvLnO.jpg" class="card-img-top" alt="poster">
+                        <div class="card-body">
+                            <h5 class="card-title">title</h5>
+                            <h6 class="card-info">價格: $ 123</h6>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-show-mall" data-toggle="modal" data-target="#mall-modal">More</button>
+                            <button class="btn btn-info btn-add-favorite">Add to cart</button>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
     </div>
 
     <!-- paginator -->

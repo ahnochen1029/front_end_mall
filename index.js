@@ -89,10 +89,18 @@ const addToCart = (id) => {
         return element.productId === id;
     });
     if (list.some((element) => element.productId === id)) {
-        return alert('此電影已經在收藏清單中！');
+        list.find(element => {
+            if (element.productId === id) {
+                element.quantity++;
+            }
+        });
+        localStorage.setItem('cart', JSON.stringify(list));
+        return;
     }
+    product.quantity = 1;
     list.push(product);
     localStorage.setItem('cart', JSON.stringify(list));
+    alert('成功加入購物車');
 };
 
 // 點擊more/加入購物車
