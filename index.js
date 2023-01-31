@@ -2,6 +2,10 @@ const BASE_URL = 'http://127.0.0.1:8080';
 
 const dataPanel = document.querySelector("#data-panel");
 const searchKeyword = document.querySelector("#search-keyword");
+const paginator = document.querySelector("#paginator");
+const PER_PAGE = 12;
+
+const productsList = [];
 
 const showProductModal = (id) => {
     const modalTitle = document.querySelector("#mall-modal-title");
@@ -19,35 +23,22 @@ const showProductModal = (id) => {
     });
 };
 
-// 點擊more
-dataPanel.addEventListener('click', function onPanelClicked(event) {
-    if (event.target.matches(".btn-show-mall")) {
-        console.log(event.target.dataset);
-        showProductModal(Number(event.target.dataset.id));
-    }
-});
-
-const search = (keyword) => {
+const search = (keyword, page = 1) => {
     axios.get(`${BASE_URL}/products`, {
         params: {
-            search: keyword
+            search: keyword,
+            limit: PER_PAGE,
+            offset: (page - 1) * PER_PAGE
         }
     }).then(res => {
-        const productsList = [];
+        productsList.length = 0;
         productsList.push(...res.data.results);
+        renderPaginator(res.data.total);
         renderProductList(productsList);
     }).catch(e => {
         console.log('error', e);
     });
 };
-
-// 搜尋關鍵字
-searchKeyword.addEventListener('submit', function onSearchSubmit(event) {
-    const searchInput = document.querySelector('#search-input');
-    event.preventDefault();
-    const keyword = searchInput.value.trim();
-    search(keyword);
-});
 
 const renderProductList = (data) => {
     let rawHTML = "";
@@ -67,7 +58,7 @@ const renderProductList = (data) => {
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-primary btn-show-mall" data-toggle="modal" data-target="#mall-modal" data-id="${element.productId}">More</button>
-                        <button class="btn btn-info btn-add-favorite">加入購物車</button>
+                        <button class="btn btn-info btn-add-cart" data-id="${element.productId}">加入購物車</button>
                     </div>
                 </div>
             </div>
@@ -77,12 +68,79 @@ const renderProductList = (data) => {
     dataPanel.innerHTML = rawHTML;
 };
 
+//頁碼顯示
+function renderPaginator(amount) {
+    //計算總頁數
+    const numberOfPages = Math.ceil(amount / PER_PAGE);
+    //製作 template 
+    let rawHTML = '';
+
+    for (let page = 1; page <= numberOfPages; page++) {
+        rawHTML += `<li class="page-item"><a class="page-link" href="#" data-page="${page}">${page}</a></li>`;
+    }
+    //放回 HTML
+    paginator.innerHTML = rawHTML;
+}
+
+// 加入購物車行動
+const addToCart = (id) => {
+    const list = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+    const product = productsList.find(element => {
+        return element.productId === id;
+    });
+    if (list.some((element) => element.productId === id)) {
+        return alert('此電影已經在收藏清單中！');
+    }
+    list.push(product);
+    localStorage.setItem('cart', JSON.stringify(list));
+};
+
+// 點擊more/加入購物車
+dataPanel.addEventListener('click', function onPanelClicked(event) {
+    const id = event.target.dataset.id;
+    if (event.target.matches(".btn-show-mall")) {
+        showProductModal(Number(id));
+    } else if (event.target.matches(".btn-add-cart")) {
+        addToCart(Number(id));
+    }
+});
+
+// 搜尋關鍵字
+searchKeyword.addEventListener('submit', function onSearchSubmit(event) {
+    const searchInput = document.querySelector('#search-input');
+    event.preventDefault();
+    const keyword = searchInput.value.trim();
+    search(keyword);
+});
+
+// 分頁結果+搜尋
+paginator.addEventListener('click', function onPaginatorClicked(event) {
+    if (event.target.tagName !== 'A') return;
+    const page = Number(event.target.dataset.page);
+
+    const searchInput = document.querySelector('#search-input');
+    event.preventDefault();
+    const keyword = searchInput.value.trim();
+
+    search(keyword, page);
+});
+
 
 // 首頁
-axios.get(`${BASE_URL}/products`).then(res => {
-    const productsList = [];
-    productsList.push(...res.data.results);
-    renderProductList(productsList);
-}).catch(e => {
-    console.log('error', e);
-});
+const init = (page) => {
+    axios.get(`${BASE_URL}/products`, {
+        params: {
+            limit: PER_PAGE,
+            offset: (page - 1) * PER_PAGE
+        }
+    }).then(res => {
+        productsList.length = 0;
+        productsList.push(...res.data.results);
+        renderPaginator(res.data.total);
+        renderProductList(productsList);
+    }).catch(e => {
+        console.log('error', e);
+    });
+};
+
+init(1);
