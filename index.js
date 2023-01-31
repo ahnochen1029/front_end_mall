@@ -1,30 +1,52 @@
 const BASE_URL = 'http://127.0.0.1:8080';
 
-
-
 const dataPanel = document.querySelector("#data-panel");
+const searchKeyword = document.querySelector("#search-keyword");
 
 const showProductModal = (id) => {
     const modalTitle = document.querySelector("#mall-modal-title");
     const modalImage = document.querySelector("#mall-modal-image");
     const modalDesc = document.querySelector("#mall-modal-description");
-    const modalCategory = document.querySelector("#mall-modal-category")
+    const modalCategory = document.querySelector("#mall-modal-category");
     axios.get(`${BASE_URL}/products/${id}`).then(res => {
         const data = res.data;
         modalTitle.innerText = data.productName;
         modalImage.innerHTML = `<img src="${data.imageUrl}" alt="poster" class="img-fluid">`;
         modalDesc.innerText = `描述: ${data.description}`;
-        modalCategory.innerText = `分類: ${data.category}`
+        modalCategory.innerText = `分類: ${data.category}`;
     }).catch(e => {
         console.log('error', e);
     });
 };
 
+// 點擊more
 dataPanel.addEventListener('click', function onPanelClicked(event) {
     if (event.target.matches(".btn-show-mall")) {
         console.log(event.target.dataset);
         showProductModal(Number(event.target.dataset.id));
     }
+});
+
+const search = (keyword) => {
+    axios.get(`${BASE_URL}/products`, {
+        params: {
+            search: keyword
+        }
+    }).then(res => {
+        const productsList = [];
+        productsList.push(...res.data.results);
+        renderProductList(productsList);
+    }).catch(e => {
+        console.log('error', e);
+    });
+};
+
+// 搜尋關鍵字
+searchKeyword.addEventListener('submit', function onSearchSubmit(event) {
+    const searchInput = document.querySelector('#search-input');
+    event.preventDefault();
+    const keyword = searchInput.value.trim();
+    search(keyword);
 });
 
 const renderProductList = (data) => {
@@ -55,6 +77,8 @@ const renderProductList = (data) => {
     dataPanel.innerHTML = rawHTML;
 };
 
+
+// 首頁
 axios.get(`${BASE_URL}/products`).then(res => {
     const productsList = [];
     productsList.push(...res.data.results);
