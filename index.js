@@ -8,11 +8,13 @@ const showProductModal = (id) => {
     const modalTitle = document.querySelector("#mall-modal-title");
     const modalImage = document.querySelector("#mall-modal-image");
     const modalDesc = document.querySelector("#mall-modal-description");
+    const modalCategory = document.querySelector("#mall-modal-category")
     axios.get(`${BASE_URL}/products/${id}`).then(res => {
         const data = res.data;
         modalTitle.innerText = data.productName;
         modalImage.innerHTML = `<img src="${data.imageUrl}" alt="poster" class="img-fluid">`;
-        modalDesc.innerText = data.description;
+        modalDesc.innerText = `描述: ${data.description}`;
+        modalCategory.innerText = `分類: ${data.category}`
     }).catch(e => {
         console.log('error', e);
     });
