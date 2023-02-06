@@ -54,7 +54,7 @@ const renderProductList = (data) => {
                     alt="Poster"/>
                     <div class="card-body">
                         <h5 class="card-title">${element.productName}</h5>
-                        <h6 class="card-info">價格: $ ${element.price}</h6>
+                        <h6 class="card-info">價格: $ ${formatNumber(element.price)}</h6>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-primary btn-show-mall" data-toggle="modal" data-target="#mall-modal" data-id="${element.productId}">More</button>
@@ -67,6 +67,12 @@ const renderProductList = (data) => {
 
     dataPanel.innerHTML = rawHTML;
 };
+
+function formatNumber(price) {
+    const comma = /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g;
+    const formatNum = price.toString().replace(comma, ',');
+    return formatNum;
+}
 
 //頁碼顯示
 function renderPaginator(amount) {

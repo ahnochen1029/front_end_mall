@@ -22,8 +22,8 @@ const renderCart = (data) => {
                 ${optionHTML}
             </select>
             </td>
-            <td>${element.price}</td>
-            <td>${element.price * element.quantity}</td>
+            <td>${formatNumber(element.price)}</td>
+            <td>${formatNumber(element.price * element.quantity)}</td>
             <td>
                 <button class="btn btn-danger btn-remove-item" data-id="${element.productId}">移除</button>
             </td>
@@ -35,6 +35,12 @@ const renderCart = (data) => {
 
     bindEvent();
 };
+
+function formatNumber(price) {
+    const comma = /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g;
+    const formatNum = price.toString().replace(comma, ',');
+    return formatNum;
+}
 
 function bindEvent() {
     const btnRemoveItem = document.querySelectorAll(".btn-remove-item");
