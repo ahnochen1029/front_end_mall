@@ -19,7 +19,7 @@ const renderCart = (data) => {
             <td>${element.productName}</td>
             <td>
             <select class="custom-select" id="cart-change-quantity-${element.productId}" data-id="${element.productId}"required>
-                <option selected disabled value="${element.quantity}">${element.quantity}</option>
+                <option value="${element.quantity}">${element.quantity}</option>
                 ${optionHTML}
             </select>
             </td>
@@ -33,7 +33,29 @@ const renderCart = (data) => {
         totalPrice += element.price;
     });
     cartBody.innerHTML = rawHTML;
+
+    bindEvent();
 };
+
+function bindEvent() {
+    const btnRemoveItem = document.querySelectorAll(".btn-remove-item");
+    const customSelect = document.querySelectorAll(".custom-select");
+    btnRemoveItem.forEach(ele => {
+        ele.addEventListener("click", event => {
+            event.stopImmediatePropagation();
+            const id = event.target.dataset.id;
+            removeFromCart(Number(id));
+        });
+    });
+    customSelect.forEach(ele => {
+        ele.addEventListener("change", event => {
+            event.stopImmediatePropagation();
+            const id = event.target.dataset.id;
+            const value = event.target.value;
+            changeQtyFromCart(Number(id), Number(value));
+        });
+    });
+}
 
 // 更新購物車項目數量
 function changeQtyFromCart(id, value) {
@@ -49,18 +71,6 @@ function changeQtyFromCart(id, value) {
 
 }
 
-cartBody.addEventListener('click', function onPanelClicked(event) {
-    const id = event.target.dataset.id;
-    if (event.target.matches('.btn-remove-item')) {
-        removeFromCart(Number(id));
-    } else if (event.target.matches('.custom-select')) {
-        console.log('select.....');
-        const changeQuantity = document.getElementById(`cart-change-quantity-${id}`);
-        const value = changeQuantity.value;
-        console.log('value=>', value);
-        changeQtyFromCart(Number(id), Number(value));
-    }
-});
 
 // 刪除購物車項目
 function removeFromCart(id) {
