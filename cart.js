@@ -5,7 +5,7 @@ const renderCart = (data) => {
     let i = 1;
     let totalPrice = 0;
     data?.forEach(element => {
-        let optionHTML = '';
+        let optionHTML = `<option value="${element.quantity}">${element.quantity}</option>`;
         for (let j = 1; j < 6; j++) {
             if (j !== element.quantity) {
                 optionHTML += `
@@ -19,7 +19,6 @@ const renderCart = (data) => {
             <td>${element.productName}</td>
             <td>
             <select class="custom-select" id="cart-change-quantity-${element.productId}" data-id="${element.productId}"required>
-                <option value="${element.quantity}">${element.quantity}</option>
                 ${optionHTML}
             </select>
             </td>
